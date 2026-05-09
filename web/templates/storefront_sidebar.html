@@ -1,0 +1,89 @@
+{{define "storefrontSidebar"}}
+<aside class="detail-sidebar">
+  <section class="side-card side-list-card">
+    <ul class="icon-link-list">
+      {{range .Storefront.SidebarHighlights}}
+        <li><span class="icon-badge">{{.Icon}}</span><span>{{.Label}}</span></li>
+      {{end}}
+    </ul>
+    <div class="mini-section-title">完整控制器支援</div>
+    <ul class="icon-link-list compact">
+      {{range .Storefront.ControllerSupports}}
+        <li><span class="icon-badge">{{.Icon}}</span><span>{{.Label}}</span></li>
+      {{end}}
+    </ul>
+  </section>
+
+  <section class="side-card">
+    <div class="section-heading section-heading-small">
+      <h2>语言</h2>
+    </div>
+    <table class="language-table">
+      <thead>
+        <tr>
+          <th></th>
+          <th>介面</th>
+          <th>完整語音</th>
+          <th>字幕</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{range .Storefront.LanguageSupport}}
+          <tr>
+            <td>{{.Name}}</td>
+            <td>{{if .Interface}}✓{{end}}</td>
+            <td>{{if .FullAudio}}✓{{end}}</td>
+            <td>{{if .Subtitles}}✓{{end}}</td>
+          </tr>
+        {{end}}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="side-card deck-card">
+    <div class="section-heading section-heading-small">
+      <h2>STEAM DECK 相容性</h2>
+    </div>
+    <div class="deck-status-row">
+      <div class="deck-status-mark">✓</div>
+      <div class="deck-status-copy">{{.Storefront.SteamDeck.Status}}</div>
+      <button type="button">{{.Storefront.SteamDeck.CTA}}</button>
+    </div>
+  </section>
+
+  <section class="side-card">
+    <div class="achievement-header">
+      <span>包含 {{.Storefront.AchievementCount}} 項 Steam 成就</span>
+    </div>
+    <div class="achievement-strip">
+      {{range .Storefront.AchievementBadges}}
+        <div class="achievement-badge">{{.Label}}</div>
+      {{end}}
+      <a class="achievement-link" href="#">檢視全部 {{.Storefront.AchievementCount}}</a>
+    </div>
+  </section>
+
+  <section class="side-card metadata-card">
+    <dl class="metadata-list">
+      {{range .Storefront.MetadataEntries}}
+        <div>
+          <dt>{{.Key}}</dt>
+          <dd>{{.Value}}</dd>
+        </div>
+      {{end}}
+    </dl>
+
+    <ul class="external-link-list">
+      {{range .Storefront.CommunityLinks}}
+        <li><a href="{{.URL}}" target="_blank" rel="noreferrer">{{.Label}}</a></li>
+      {{end}}
+    </ul>
+
+    <ul class="external-link-list secondary">
+      {{range .Storefront.DiscoveryLinks}}
+        <li><a href="{{.URL}}" target="_blank" rel="noreferrer">{{.Label}}</a></li>
+      {{end}}
+    </ul>
+  </section>
+</aside>
+{{end}}

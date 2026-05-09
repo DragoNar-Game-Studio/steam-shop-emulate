@@ -1,0 +1,36 @@
+{{define "storefrontSystemRequirements"}}
+<section class="info-block system-requirements-block">
+  <div class="section-heading">
+    <h2>系统需求</h2>
+  </div>
+
+  <div class="requirement-tabs">
+    {{range .Storefront.SystemRequirements.Platforms}}
+      <span class="requirement-tab {{if .IsActive}}is-active{{end}}">{{.Name}}</span>
+    {{end}}
+  </div>
+
+  {{range .Storefront.SystemRequirements.Platforms}}
+    {{if .IsActive}}
+      <div class="requirement-columns">
+        <div class="requirement-column">
+          <h3>最低配备:</h3>
+          <ul class="requirement-list">
+            {{range .Minimum}}
+              <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+        <div class="requirement-column">
+          <h3>建议配备:</h3>
+          <ul class="requirement-list">
+            {{range .Recommended}}
+              <li>{{.}}</li>
+            {{end}}
+          </ul>
+        </div>
+      </div>
+    {{end}}
+  {{end}}
+</section>
+{{end}}

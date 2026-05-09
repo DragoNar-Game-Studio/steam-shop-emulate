@@ -1,0 +1,260 @@
+{
+  "app_id": "311210",
+  "slug": "TestTestTestTest",
+  "title": "TestTestTestTest",
+  "subtitle": "TestTestTestTestTestTestTest",
+  "short_description": "TestTestTestTestTestTestTest",
+  "long_description": "",
+  "developer": "TestTestTestTest",
+  "publisher": "TestTestTestTest",
+  "release_date": "TestTestTestTest",
+  "price": "TestTestTestTest",
+  "discount_text": "TestTestTestTest",
+  "review_summary": "TestTestTestTest",
+  "review_count": "TestTestTestTest",
+  "tags": [
+    "动作",
+    "第一人称射击",
+    "多人",
+    "合作",
+    "赛博朋克",
+    "剧情",
+    "竞技",
+    "未来战争"
+  ],
+  "features": [
+    "高强度战斗循环",
+    "明确职业分工",
+    "强烈科技感包装",
+    "便于验证 Steam 首屏视觉"
+  ],
+  "content_html": "\u003ch3\u003e\u003cp\u003e测试测试\u003c/p\u003e\u003c/h3\u003e\u003cdiv\u003e测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\u003c/div\u003e\u003cdiv\u003e\u003cbr\u003e\u003c/div\u003e\u003cdiv\u003e\u003cp\u003e\u003cimg src=\"/uploads/20260510003815-未标题-1.png\" alt=\"\"\u003e\u003c/p\u003e测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试\u003c/div\u003e",
+  "hero_image": "/uploads/20260509223842-shop_trader.png",
+  "hero_thumbs": [
+    "/uploads/20260509223842-shop_trader.png",
+    "/uploads/20260509223842-selectbackgroundimage1.png",
+    "/uploads/20260509223841-shop.png",
+    "/uploads/20260509223840-playing_cards.png"
+  ],
+  "capsule_image": "/uploads/20260509222322-selectbackgroundimage1.png",
+  "logo_image": "/uploads/20260509221758-1.png",
+  "gallery": [
+    "/uploads/20260509220705-4.png"
+  ],
+  "about_blocks": [
+    {
+      "heading": "关于这款游戏",
+      "body": ""
+    },
+    {
+      "heading": "核心卖点",
+      "body": "高强度战斗循环 / 明确职业分工 / 强烈科技感包装 / 便于验证 Steam 首屏视觉"
+    }
+  ],
+  "detail_sections": [
+    {
+      "heading": "黑暗围城，征途再启",
+      "paragraphs": [
+        "探索地图，强化能力，击败怪物，搜寻宝藏。",
+        "将高密度动作体验转化为更强调节奏感、路线选择和资源管理的展示段落，让你可以验证 Steam 长详情里的图文组织能力。"
+      ],
+      "image": ""
+    },
+    {
+      "heading": "滚雪球式的回合制杀戮",
+      "paragraphs": [
+        "按法力值从低到高依序打出卡牌，逐步叠加连锁效果，每一步都会放大下一张卡的威力。",
+        "这里预留了大图位，方便你放入战斗截图、UI 展示图或宣传画面。"
+      ],
+      "image": ""
+    },
+    {
+      "heading": "自由掌控节奏",
+      "paragraphs": [
+        "自己决定玩法风格，是谨慎规划、步步为营，或是极限手速、一气呵成一大套连招。",
+        "这个区块用于承接更长的卖点说明，并模拟原始商店页在正文后半段的阅读密度。"
+      ],
+      "image": ""
+    }
+  ],
+  "read_more_label": "继续阅读",
+  "system_requirements": {
+    "platforms": [
+      {
+        "name": "Windows",
+        "is_active": true,
+        "minimum": [
+          "需要 64 位元的处理器及作业系统",
+          "作业系统: Windows 10 64bit",
+          "处理器: x64 architecture with SSE2",
+          "记忆体: 4 GB 记忆体",
+          "显示卡: DX11, DX12 capable",
+          "储存空间: 2 GB 可用空间",
+          "音效卡: Sound Blaster 4000"
+        ],
+        "recommended": [
+          "需要 64 位元的处理器及作业系统",
+          "作业系统: Windows 10 64bit",
+          "处理器: x64 architecture with SSE2",
+          "记忆体: 4 GB 记忆体",
+          "显示卡: DX11, DX12 capable",
+          "储存空间: 2 GB 可用空间",
+          "音效卡: Sound Mega Blaster 90000"
+        ]
+      },
+      {
+        "name": "macOS",
+        "is_active": false,
+        "minimum": [
+          "Apple Silicon 或 Intel 处理器"
+        ],
+        "recommended": [
+          "Apple Silicon"
+        ]
+      }
+    ]
+  },
+  "sidebar_highlights": [
+    {
+      "icon": "👤",
+      "label": "单人"
+    },
+    {
+      "icon": "✹",
+      "label": "Steam 成就"
+    },
+    {
+      "icon": "☁",
+      "label": "Steam 云端"
+    },
+    {
+      "icon": "👥",
+      "label": "亲友同乐"
+    }
+  ],
+  "controller_supports": [
+    {
+      "icon": "🎮",
+      "label": "Xbox 控制器"
+    },
+    {
+      "icon": "🎮",
+      "label": "PlayStation 控制器"
+    }
+  ],
+  "language_support": [
+    {
+      "name": "简体中文",
+      "interface": true,
+      "full_audio": false,
+      "subtitles": true
+    },
+    {
+      "name": "英文",
+      "interface": true,
+      "full_audio": true,
+      "subtitles": true
+    },
+    {
+      "name": "法文",
+      "interface": true,
+      "full_audio": false,
+      "subtitles": true
+    },
+    {
+      "name": "德文",
+      "interface": true,
+      "full_audio": false,
+      "subtitles": true
+    }
+  ],
+  "steam_deck": {
+    "status": "已验证",
+    "cta": "深入了解"
+  },
+  "achievement_count": "32",
+  "achievement_badges": [
+    {
+      "label": "◇"
+    },
+    {
+      "label": "✕"
+    },
+    {
+      "label": "☠"
+    },
+    {
+      "label": "✦"
+    }
+  ],
+  "metadata_entries": [
+    {
+      "key": "名称",
+      "value": "PROJECT RETAIL OPS"
+    },
+    {
+      "key": "类型",
+      "value": "动作、独立制作、策略"
+    },
+    {
+      "key": "开发者",
+      "value": "Your Studio"
+    },
+    {
+      "key": "发行商",
+      "value": "Your Publishing Label"
+    },
+    {
+      "key": "系列",
+      "value": "Retail Ops Universe"
+    },
+    {
+      "key": "发行日期",
+      "value": "Coming Soon"
+    }
+  ],
+  "community_links": [
+    {
+      "label": "X",
+      "url": "#"
+    },
+    {
+      "label": "YouTube",
+      "url": "#"
+    },
+    {
+      "label": "Discord",
+      "url": "#"
+    },
+    {
+      "label": "TikTok",
+      "url": "#"
+    },
+    {
+      "label": "Bilibili",
+      "url": "#"
+    },
+    {
+      "label": "QQ 群",
+      "url": "#"
+    }
+  ],
+  "discovery_links": [
+    {
+      "label": "检视更新历史记录",
+      "url": "#"
+    },
+    {
+      "label": "阅读相关新闻",
+      "url": "#"
+    },
+    {
+      "label": "检视讨论区",
+      "url": "#"
+    },
+    {
+      "label": "寻找社群群组",
+      "url": "#"
+    }
+  ]
+}

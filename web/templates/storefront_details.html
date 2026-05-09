@@ -1,0 +1,34 @@
+{{define "storefrontDetails"}}
+<section class="app-detail-layout">
+  <div class="detail-main">
+    <section class="purchase-panel">
+      <div class="section-heading">
+        <h2>购买 {{.Storefront.Title}}</h2>
+      </div>
+      <div class="purchase-offer">
+        <div class="offer-copy">
+          <h3>{{.Storefront.Subtitle}}</h3>
+          <p>{{.Storefront.ShortDescription}}</p>
+        </div>
+        <div class="offer-actions">
+          <span class="offer-discount">{{.Storefront.DiscountText}}</span>
+          <span class="offer-price">{{.Storefront.Price}}</span>
+          <button type="button">添加至购物车</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="info-block article-flow-block">
+      <div class="section-heading">
+        <h2>游戏内容介绍</h2>
+      </div>
+      <div class="rich-description content-freeflow">{{contentHTML .Storefront}}</div>
+      <button class="read-more-button" type="button">{{.Storefront.ReadMoreLabel}}</button>
+    </section>
+
+    {{template "storefrontSystemRequirements" .}}
+  </div>
+
+  {{template "storefrontSidebar" .}}
+</section>
+{{end}}

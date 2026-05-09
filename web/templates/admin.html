@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台编辑 - Steam Shop Emulator</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="admin-body">
+  <main class="admin-shell">
+    <section class="admin-header">
+      <div>
+        <p class="eyebrow">EDITOR</p>
+        <h1>商店页后台</h1>
+        <p>编辑文案、标签、自由内容介绍与素材，并实时调用后端审查规则。</p>
+      </div>
+      <div class="admin-links">
+        <a class="ghost-button" href="/">查看前台</a>
+      </div>
+    </section>
+
+    <section class="admin-layout">
+      <form class="editor-form" action="/admin/save" method="post" id="editor-form">
+        <label>App ID<input name="app_id" value="{{.Storefront.AppID}}"></label>
+        <label>Slug<input name="slug" value="{{.Storefront.Slug}}"></label>
+        <label>标题<input name="title" value="{{.Storefront.Title}}"></label>
+        <label>副标题<input name="subtitle" value="{{.Storefront.Subtitle}}"></label>
+        <label>短描述<textarea name="short_description" rows="4">{{.Storefront.ShortDescription}}</textarea></label>
+        <label>开发者<input name="developer" value="{{.Storefront.Developer}}"></label>
+        <label>发行商<input name="publisher" value="{{.Storefront.Publisher}}"></label>
+        <label>发行日期<input name="release_date" value="{{.Storefront.ReleaseDate}}"></label>
+        <label>价格<input name="price" value="{{.Storefront.Price}}"></label>
+        <label>折扣标签<input name="discount_text" value="{{.Storefront.DiscountText}}"></label>
+        <label>评测摘要<input name="review_summary" value="{{.Storefront.ReviewSummary}}"></label>
+        <label>评测数量<input name="review_count" value="{{.Storefront.ReviewCount}}"></label>
+        <label>标签（逗号分隔）<textarea name="tags" rows="3">{{range $i, $tag := .Storefront.Tags}}{{if $i}}, {{end}}{{$tag}}{{end}}</textarea></label>
+        <label>卖点（逗号分隔）<textarea name="features" rows="3">{{range $i, $feature := .Storefront.Features}}{{if $i}}, {{end}}{{$feature}}{{end}}</textarea></label>
+        <label>社区链接（每行：标题 | URL）<textarea name="community_links" rows="6">{{joinLinks .Storefront.CommunityLinks}}</textarea></label>
+        <label>发现入口链接（每行：标题 | URL）<textarea name="discovery_links" rows="5">{{joinLinks .Storefront.DiscoveryLinks}}</textarea></label>
+
+        <section class="inline-editor-block">
+          <h2>内容介绍</h2>
+          <p class="inline-editor-tip">这是一个自由编辑区。直接输入文字，按 Enter / Shift+Enter 排版；点击编辑区后可直接 `Ctrl+V` 粘贴剪贴板图片。</p>
+          <div class="rich-editor-toolbar">
+            <button type="button" class="ghost-button toolbar-button" data-format="bold">粗体</button>
+            <button type="button" class="ghost-button toolbar-button" data-format="insertUnorderedList">列表</button>
+            <button type="button" class="ghost-button toolbar-button" data-format="formatBlock" data-value="h3">小标题</button>
+            <label class="ghost-button toolbar-file">
+              插入图片
+              <input type="file" id="content-image-input" accept="image/*" hidden>
+            </label>
+          </div>
+          <div id="content-editor" class="content-editor" contenteditable="true">{{contentHTML .Storefront}}</div>
+          <textarea name="content_html" id="content-html-input" hidden>{{.Storefront.ContentHTML}}</textarea>
+          <p class="upload-status" id="content-editor-status"></p>
+        </section>
+
+        <button class="primary-button" type="submit">保存文案配置</button>
+      </form>
+
+      <aside class="admin-sidebar">
+        <section class="review-panel live-review">
+          <h2>实时审查</h2>
+          <div class="score-badge" id="review-score">{{.Review.Score}} / 100</div>
+          <p class="review-status" id="review-status">{{.Review.Status}}</p>
+          <h3>亮点</h3>
+          <ul id="review-highlights">
+            {{range .Review.Highlights}}<li>{{.}}</li>{{end}}
+          </ul>
+          <h3>警告</h3>
+          <ul id="review-warnings">
+            {{range .Review.Warnings}}<li>{{.}}</li>{{end}}
+          </ul>
+          <h3>建议</h3>
+          <ul id="review-suggestions">
+            {{range .Review.Suggestions}}<li>{{.}}</li>{{end}}
+          </ul>
+        </section>
+
+        <section class="upload-panel">
+          <h2>素材上传</h2>
+          <div class="asset-upload-grid">
+            <section class="asset-card asset-card-thumbs">
+              <h3>Hero 主视觉与 4 个缩略图</h3>
+              <div class="gallery-preview-grid">
+                <div class="gallery-preview-item {{if not (thumbAt .Storefront.HeroThumbs 0)}}is-empty{{end}}" data-preview="hero_thumb_1" {{if (thumbAt .Storefront.HeroThumbs 0)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 0}}')"{{end}}><span>{{if (thumbAt .Storefront.HeroThumbs 0)}}主视觉 / 缩略图 1{{else}}未上传主视觉 / 缩略图 1{{end}}</span></div>
+                <div class="gallery-preview-item {{if not (thumbAt .Storefront.HeroThumbs 1)}}is-empty{{end}}" data-preview="hero_thumb_2" {{if (thumbAt .Storefront.HeroThumbs 1)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 1}}')"{{end}}><span>{{if (thumbAt .Storefront.HeroThumbs 1)}}缩略图 2{{else}}未上传缩略图 2{{end}}</span></div>
+                <div class="gallery-preview-item {{if not (thumbAt .Storefront.HeroThumbs 2)}}is-empty{{end}}" data-preview="hero_thumb_3" {{if (thumbAt .Storefront.HeroThumbs 2)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 2}}')"{{end}}><span>{{if (thumbAt .Storefront.HeroThumbs 2)}}缩略图 3{{else}}未上传缩略图 3{{end}}</span></div>
+                <div class="gallery-preview-item {{if not (thumbAt .Storefront.HeroThumbs 3)}}is-empty{{end}}" data-preview="hero_thumb_4" {{if (thumbAt .Storefront.HeroThumbs 3)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 3}}')"{{end}}><span>{{if (thumbAt .Storefront.HeroThumbs 3)}}缩略图 4{{else}}未上传缩略图 4{{end}}</span></div>
+              </div>
+              <div class="thumb-upload-grid">
+                <form action="/admin/upload" method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+                  <input type="hidden" name="slot" value="hero_thumb_1">
+                  <input type="file" name="asset" accept="image/*" required>
+                  <button class="primary-button" type="submit">上传主视觉 / 缩略图 1</button>
+                  <p class="upload-status" data-upload-status></p>
+                </form>
+                <form action="/admin/upload" method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+                  <input type="hidden" name="slot" value="hero_thumb_2">
+                  <input type="file" name="asset" accept="image/*" required>
+                  <button class="primary-button" type="submit">上传缩略图 2</button>
+                  <p class="upload-status" data-upload-status></p>
+                </form>
+                <form action="/admin/upload" method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+                  <input type="hidden" name="slot" value="hero_thumb_3">
+                  <input type="file" name="asset" accept="image/*" required>
+                  <button class="primary-button" type="submit">上传缩略图 3</button>
+                  <p class="upload-status" data-upload-status></p>
+                </form>
+                <form action="/admin/upload" method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+                  <input type="hidden" name="slot" value="hero_thumb_4">
+                  <input type="file" name="asset" accept="image/*" required>
+                  <button class="primary-button" type="submit">上传缩略图 4</button>
+                  <p class="upload-status" data-upload-status></p>
+                </form>
+              </div>
+            </section>
+
+            <section class="asset-card">
+              <h3>Capsule 胶囊图</h3>
+              <div class="asset-preview asset-preview-capsule {{if .Storefront.CapsuleImage}}has-image{{else}}is-empty{{end}}" data-preview="capsule" {{if .Storefront.CapsuleImage}}style="background-image:url('{{.Storefront.CapsuleImage}}')"{{end}}>
+                <span>{{if .Storefront.CapsuleImage}}当前 Capsule 预览{{else}}当前未上传 Capsule 图{{end}}</span>
+              </div>
+              <form action="/admin/upload" method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+                <input type="hidden" name="slot" value="capsule">
+                <input type="file" name="asset" accept="image/*" required>
+                <button class="primary-button" type="submit">上传 Capsule 图</button>
+                <p class="upload-status" data-upload-status></p>
+              </form>
+            </section>
+
+            <section class="asset-card asset-card-gallery">
+              <h3>Gallery 截图</h3>
+              <div class="gallery-preview-grid" data-gallery-preview>
+                {{range .Storefront.Gallery}}
+                  <div class="gallery-preview-item" style="background-image:url('{{.}}')"></div>
+                {{else}}
+                  <div class="gallery-preview-item is-empty"><span>当前没有截图</span></div>
+                {{end}}
+              </div>
+              <form action="/admin/upload" method="post" enctype="multipart/form-data" class="upload-form" data-upload-form>
+                <input type="hidden" name="slot" value="gallery">
+                <input type="file" name="asset" accept="image/*" required>
+                <button class="primary-button" type="submit">新增截图</button>
+                <p class="upload-status" data-upload-status></p>
+              </form>
+            </section>
+          </div>
+          <p class="upload-tip">内容介绍图片可直接在自由编辑区粘贴，或点“插入图片”。</p>
+        </section>
+      </aside>
+    </section>
+  </main>
+
+  <script>
+    const form = document.getElementById("editor-form");
+    const fields = Array.from(form.querySelectorAll("input, textarea")).filter(field => field.name !== "content_html");
+    const contentEditor = document.getElementById("content-editor");
+    const contentInput = document.getElementById("content-html-input");
+    const contentStatus = document.getElementById("content-editor-status");
+
+    const syncContentHTML = () => {
+      contentInput.value = contentEditor.innerHTML.trim();
+    };
+
+    syncContentHTML();
+
+    const collect = () => {
+      syncContentHTML();
+      const data = Object.fromEntries(new FormData(form).entries());
+      return {
+        app_id: data.app_id,
+        slug: data.slug,
+        title: data.title,
+        subtitle: data.subtitle,
+        short_description: data.short_description,
+        developer: data.developer,
+        publisher: data.publisher,
+        release_date: data.release_date,
+        price: data.price,
+        discount_text: data.discount_text,
+        review_summary: data.review_summary,
+        review_count: data.review_count,
+        tags: data.tags.split(",").map(v => v.trim()).filter(Boolean),
+        features: data.features.split(",").map(v => v.trim()).filter(Boolean),
+        hero_thumbs: [
+          {{printf "%q" (thumbAt .Storefront.HeroThumbs 0)}},
+          {{printf "%q" (thumbAt .Storefront.HeroThumbs 1)}},
+          {{printf "%q" (thumbAt .Storefront.HeroThumbs 2)}},
+          {{printf "%q" (thumbAt .Storefront.HeroThumbs 3)}}
+        ],
+        capsule_image: {{printf "%q" .Storefront.CapsuleImage}},
+        gallery: [
+          {{range $i, $img := .Storefront.Gallery}}{{if $i}},{{end}}{{printf "%q" $img}}{{end}}
+        ]
+      };
+    };
+
+    const fillList = (id, items) => {
+      const list = document.getElementById(id);
+      list.innerHTML = "";
+      (items.length ? items : ["暂无"]).forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item;
+        list.appendChild(li);
+      });
+    };
+
+    let timer = null;
+    const refreshReview = () => {
+      window.clearTimeout(timer);
+      timer = window.setTimeout(async () => {
+        const response = await fetch("/api/review", {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(collect())
+        });
+        if (!response.ok) return;
+        const report = await response.json();
+        document.getElementById("review-score").textContent = `${report.score} / 100`;
+        document.getElementById("review-status").textContent = report.status;
+        fillList("review-highlights", report.highlights || []);
+        fillList("review-warnings", report.warnings || []);
+        fillList("review-suggestions", report.suggestions || []);
+      }, 250);
+    };
+
+    fields.forEach(field => field.addEventListener("input", refreshReview));
+    contentEditor.addEventListener("input", refreshReview);
+    contentEditor.addEventListener("input", syncContentHTML);
+
+    const setPreviewImage = (preview, src, label) => {
+      preview.style.backgroundImage = `url('${src}')`;
+      preview.classList.remove("is-empty");
+      preview.classList.add("has-image");
+      const text = preview.querySelector("span");
+      if (text) text.textContent = `${label} 预览`;
+    };
+
+    const renderGallery = (container, images) => {
+      container.innerHTML = "";
+      if (!images.length) {
+        const empty = document.createElement("div");
+        empty.className = "gallery-preview-item is-empty";
+        empty.innerHTML = "<span>当前没有截图</span>";
+        container.appendChild(empty);
+        return;
+      }
+
+      images.forEach(src => {
+        const item = document.createElement("div");
+        item.className = "gallery-preview-item";
+        item.style.backgroundImage = `url('${src}')`;
+        container.appendChild(item);
+      });
+    };
+
+    const uploadAsset = async (slot, file, status) => {
+      const payload = new FormData();
+      payload.append("slot", slot);
+      payload.append("asset", file, file.name || `${slot}.png`);
+
+      status.textContent = "上传中...";
+      const response = await fetch("/admin/upload", {
+        method: "POST",
+        headers: { "Accept": "application/json" },
+        body: payload
+      });
+
+      if (!response.ok) {
+        status.textContent = "上传失败，请重试。";
+        return null;
+      }
+
+      return response.json();
+    };
+
+    const insertImageAtCaret = (src) => {
+      contentEditor.focus();
+      const selection = window.getSelection();
+      if (!selection || selection.rangeCount === 0) {
+        contentEditor.insertAdjacentHTML("beforeend", `<p><img src="${src}" alt=""></p>`);
+        syncContentHTML();
+        return;
+      }
+
+      const range = selection.getRangeAt(0);
+      range.deleteContents();
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "";
+      const paragraph = document.createElement("p");
+      paragraph.appendChild(img);
+      range.insertNode(paragraph);
+      range.setStartAfter(paragraph);
+      range.collapse(true);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      syncContentHTML();
+    };
+
+    document.querySelectorAll(".toolbar-button").forEach(button => {
+      button.addEventListener("click", () => {
+        contentEditor.focus();
+        const format = button.dataset.format;
+        const value = button.dataset.value || null;
+        document.execCommand(format, false, value);
+        syncContentHTML();
+      });
+    });
+
+    document.getElementById("content-image-input").addEventListener("change", async event => {
+      const file = event.target.files?.[0];
+      if (!file) return;
+      const result = await uploadAsset("content_image", file, contentStatus);
+      if (result?.path) {
+        insertImageAtCaret(result.path);
+        contentStatus.textContent = "内容图片已插入。";
+      }
+      event.target.value = "";
+    });
+
+    contentEditor.addEventListener("paste", async event => {
+      const items = Array.from(event.clipboardData?.items || []);
+      const imageItem = items.find(item => item.type.startsWith("image/"));
+      if (!imageItem) return;
+
+      event.preventDefault();
+      const file = imageItem.getAsFile();
+      if (!file) return;
+
+      const result = await uploadAsset("content_image", file, contentStatus);
+      if (result?.path) {
+        insertImageAtCaret(result.path);
+        contentStatus.textContent = "粘贴图片已插入。";
+      }
+    });
+
+    document.querySelectorAll("[data-upload-form]").forEach(uploadForm => {
+      const fileInput = uploadForm.querySelector("input[type='file']");
+      const status = uploadForm.querySelector("[data-upload-status]");
+      const slot = uploadForm.querySelector("input[name='slot']").value;
+
+      fileInput.addEventListener("change", () => {
+        const file = fileInput.files?.[0];
+        if (!file) return;
+
+        if (slot === "gallery") {
+          status.textContent = `已选择 ${file.name}，点击“新增截图”开始上传。`;
+          return;
+        }
+
+        const preview = document.querySelector(`[data-preview='${slot}']`);
+        if (!preview) return;
+
+        const objectURL = URL.createObjectURL(file);
+        setPreviewImage(preview, objectURL, slot.toUpperCase());
+        status.textContent = `已选择 ${file.name}，点击上传以保存。`;
+      });
+
+      uploadForm.addEventListener("submit", async event => {
+        event.preventDefault();
+        const file = fileInput.files?.[0];
+        if (!file) {
+          status.textContent = "请先选择图片。";
+          return;
+        }
+
+        const result = await uploadAsset(slot, file, status);
+        if (!result) return;
+
+        if (result.slot === "gallery") {
+          const gallery = document.querySelector("[data-gallery-preview]");
+          renderGallery(gallery, result.gallery || []);
+          status.textContent = "截图已上传。";
+        } else if (result.path) {
+          const preview = document.querySelector(`[data-preview='${result.slot}']`);
+          if (preview) {
+            setPreviewImage(preview, result.path, result.slot.toUpperCase());
+          }
+          status.textContent = "素材已上传。";
+        }
+
+        uploadForm.reset();
+      });
+    });
+
+    form.addEventListener("submit", syncContentHTML);
+  </script>
+</body>
+</html>

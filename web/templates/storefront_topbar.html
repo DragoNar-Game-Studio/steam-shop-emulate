@@ -1,0 +1,36 @@
+{{define "storefrontTopbar"}}
+<header class="steam-topbar">
+  <div class="steam-topbar-main">
+    <div class="steam-wordmark">STEAM</div>
+    <nav class="steam-main-nav">
+      <a class="is-active" href="/">商店</a>
+      <a href="#">新鲜推荐</a>
+      <a href="#">类别</a>
+      <a href="#">点数商店</a>
+      <a href="#">新闻</a>
+      <a href="#">实验室</a>
+    </nav>
+    <div class="steam-topbar-actions">
+      <a class="install-button" href="/admin">后台编辑</a>
+      <span>登录</span>
+      <span>语言</span>
+    </div>
+  </div>
+  <div class="steam-bluebar">
+    <div class="steam-bluebar-inner">
+      <nav class="steam-sub-nav">
+        <a href="#">您的商店</a>
+        <a href="#">新品与热门商品</a>
+        <a href="#">类别</a>
+        <a href="#">点数商店</a>
+        <a href="#">新闻</a>
+        <a href="#">实验室</a>
+      </nav>
+      <div class="steam-search-shell">
+        <input type="text" value="{{.Storefront.Title}}" aria-label="搜索">
+        <button type="button">🔎</button>
+      </div>
+    </div>
+  </div>
+</header>
+{{end}}

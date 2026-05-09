@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{.Storefront.Title}} - Steam Shop Emulator</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body class="storefront-body">
+  {{template "storefrontTopbar" .}}
+
+  <main class="steam-page">
+    <div class="steam-page-inner">
+      {{template "storefrontHeader" .}}
+      {{template "storefrontHero" .}}
+      {{template "storefrontTabs" .}}
+      {{template "storefrontDetails" .}}
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{{define "storefrontHeader"}}
+<section class="app-header">
+  <div class="app-breadcrumb">
+    <a href="#">所有游戏</a>
+    <span>&gt;</span>
+    {{if .Storefront.Tags}}
+      <a href="#">{{index .Storefront.Tags 0}}</a>
+    {{else}}
+      <a href="#">动作</a>
+    {{end}}
+    <span>&gt;</span>
+    <span>{{.Storefront.Title}}</span>
+  </div>
+  <div class="app-title-row">
+    <h1>{{.Storefront.Title}}</h1>
+    <div class="app-title-actions">
+      <button type="button">社区中心</button>
+    </div>
+  </div>
+</section>
+{{end}}

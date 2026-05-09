@@ -1,0 +1,57 @@
+{{define "storefrontHero"}}
+<section class="app-hero-card">
+  <div class="app-hero-grid">
+    <div class="app-media-column">
+      <div
+        class="app-media-stage {{if (mainHeroImage .Storefront)}}has-image{{end}}"
+        data-hero-stage
+        {{if (mainHeroImage .Storefront)}}style="background-image:url('{{mainHeroImage .Storefront}}')"{{end}}>
+      </div>
+
+      <div class="app-media-strip" data-hero-strip>
+        <button type="button" class="media-thumb{{if (thumbAt .Storefront.HeroThumbs 0)}} is-active{{else}} is-empty{{end}}" data-hero-thumb data-image="{{thumbAt .Storefront.HeroThumbs 0}}" {{if (thumbAt .Storefront.HeroThumbs 0)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 0}}')"{{end}}>{{if not (thumbAt .Storefront.HeroThumbs 0)}}缩略图 1{{end}}</button>
+        <button type="button" class="media-thumb{{if (thumbAt .Storefront.HeroThumbs 1)}}{{else}} is-empty{{end}}" data-hero-thumb data-image="{{thumbAt .Storefront.HeroThumbs 1}}" {{if (thumbAt .Storefront.HeroThumbs 1)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 1}}')"{{end}}>{{if not (thumbAt .Storefront.HeroThumbs 1)}}缩略图 2{{end}}</button>
+        <button type="button" class="media-thumb{{if (thumbAt .Storefront.HeroThumbs 2)}}{{else}} is-empty{{end}}" data-hero-thumb data-image="{{thumbAt .Storefront.HeroThumbs 2}}" {{if (thumbAt .Storefront.HeroThumbs 2)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 2}}')"{{end}}>{{if not (thumbAt .Storefront.HeroThumbs 2)}}缩略图 3{{end}}</button>
+        <button type="button" class="media-thumb{{if (thumbAt .Storefront.HeroThumbs 3)}}{{else}} is-empty{{end}}" data-hero-thumb data-image="{{thumbAt .Storefront.HeroThumbs 3}}" {{if (thumbAt .Storefront.HeroThumbs 3)}}style="background-image:url('{{thumbAt .Storefront.HeroThumbs 3}}')"{{end}}>{{if not (thumbAt .Storefront.HeroThumbs 3)}}缩略图 4{{end}}</button>
+      </div>
+    </div>
+
+    <aside class="app-summary-column">
+      <div class="summary-capsule {{if .Storefront.CapsuleImage}}has-image{{end}}" {{if .Storefront.CapsuleImage}}style="background-image:url('{{.Storefront.CapsuleImage}}')"{{end}}></div>
+      <p class="summary-description">{{.Storefront.ShortDescription}}</p>
+      <dl class="summary-meta">
+        <div><dt>最近评测:</dt><dd>{{.Storefront.ReviewSummary}}</dd></div>
+        <div><dt>全部评测:</dt><dd>{{.Storefront.ReviewSummary}} ({{.Storefront.ReviewCount}})</dd></div>
+        <div><dt>发行日期:</dt><dd>{{.Storefront.ReleaseDate}}</dd></div>
+        <div><dt>开发者:</dt><dd>{{.Storefront.Developer}}</dd></div>
+        <div><dt>发行商:</dt><dd>{{.Storefront.Publisher}}</dd></div>
+      </dl>
+      <div class="summary-tags">
+        {{range .Storefront.Tags}}
+          <span>{{.}}</span>
+        {{end}}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const stage = document.querySelector("[data-hero-stage]");
+    const thumbs = Array.from(document.querySelectorAll("[data-hero-thumb]"));
+    if (!stage || !thumbs.length) return;
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener("click", () => {
+        const image = thumb.dataset.image;
+        if (!image) return;
+
+        stage.style.backgroundImage = `url('${image}')`;
+        stage.classList.add("has-image");
+        thumbs.forEach(item => item.classList.remove("is-active"));
+        thumb.classList.add("is-active");
+      });
+    });
+  })();
+</script>
+{{end}}
